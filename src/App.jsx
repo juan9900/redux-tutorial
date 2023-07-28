@@ -1,11 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  increment,
+  decrement,
+  incrementByAmount,
+} from "./features/counter/counterSlice";
+//useSelector is used to read data from the store, and useDispatch is used to dispatch actions in the reducer
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const count = useSelector((state) => state.counter.value);
+  useSelector((state) => console.log(state));
+  const [value, setValue] = useState(count);
 
+  const dispatch = useDispatch();
+
+  const incrementValue = () => {
+    setValue((value) => value + 1);
+    dispatch(increment());
+  };
+
+  const decrementValue = () => {
+    setValue((value) => value - 1);
+    dispatch(decrement());
+  };
   return (
     <>
       <div>
@@ -18,18 +38,13 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <button onClick={incrementValue}>Increment</button>
+
+        <h2>{value}</h2>
+        <button onClick={decrementValue}>Decrement</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
