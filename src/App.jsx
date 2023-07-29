@@ -26,6 +26,11 @@ function App() {
     setValue((value) => value - 1);
     dispatch(decrement());
   };
+
+  const incrementByValue = () => {
+    setValue((value) => (value += 2));
+    dispatch(incrementByAmount(2));
+  };
   return (
     <>
       <div>
@@ -39,6 +44,7 @@ function App() {
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={incrementValue}>Increment</button>
+        <button onClick={incrementByValue}>Increment by 2</button>
 
         <h2>{value}</h2>
         <button onClick={decrementValue}>Decrement</button>
